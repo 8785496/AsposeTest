@@ -8,24 +8,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <form enctype="multipart/form-data" id="form">
-        <input name="file" type="file" />
-        <button type="submit" id="submit">Submit</button>
-    </form>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <input name="file" type="file" id="file" class="hidden" />
+                <button id="open" class="btn">Open</button>
+                <div class="form-group">
+                    <label class="col-6-sm">Blur radius</label>
+                    <div class="col-6-sm">
+                        <input type="range" id="radius" class="form-control" min="0" max="10" value="0" />
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <select class="form-control" id="fileType">
+                            <option value="jpg" selected>JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="bmp">BMP</option>
+                            <option value="tiff">TIFF</option>
+                        </select>
+                        <button id="download" class="btn">Download</button>
+                    </div>
+                </div>
+        </div>
 
-    <div>
-        <img id="preview" alt="preview" />
+        <div class="text-center">
+            <div id="loader" class="hidden">Loading...</div>
+            <div style="overflow: hidden; width: fit-content; margin: auto;">
+                <img id="preview" class="hidden" alt="preview" />
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+        <script src="~/js/main.js"></script>
     </div>
-
-    <button id="apply">Apply</button>
-
-    <div>
-        <img id="result" alt="result" />
-    </div>
-
-    <script src="~/js/main.js"></script>
 </body>
 </html>

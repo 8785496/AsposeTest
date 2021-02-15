@@ -1,0 +1,11 @@
+﻿body {
+    background: black !important;
+}
+
+.hidden {
+    display: none;
+}
+
+#preview {
+    max-width: 100%;
+}

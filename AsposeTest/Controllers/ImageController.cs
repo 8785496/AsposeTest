@@ -34,16 +34,7 @@ namespace AsposeTest.Controllers
 
             // Process uploaded files
             // Don't rely on or trust the FileName property without validation.
-
             return Ok(new { name = file.FileName });
-        }
-
-        public IActionResult GetImage(string fileName)
-        {
-            var currentFolder = Directory.GetCurrentDirectory();
-            var filePath = Path.Combine(currentFolder, "Uploads", fileName);
-            var imageFileStream = System.IO.File.OpenRead(filePath);
-            return File(imageFileStream, "image/jpeg");
         }
 
         public IActionResult Preview(string fileName)
@@ -51,36 +42,19 @@ namespace AsposeTest.Controllers
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
             using (var image = Image.Load(filePath))
             {
-                image.Resize(300, 300);
                 image.Save(filePath + "_preview.jpg", new JpegOptions());
             }
             var imageFileStream = System.IO.File.OpenRead(filePath + "_preview.jpg");
             return File(imageFileStream, "image/jpeg");
         }
 
-        public IActionResult GaussianBlurPreview(string fileName = "shipment.jpg", int radius = 5, double sigma = 4.0)
+        public IActionResult GaussianBlur(string fileType, string fileName, int radius = 5, double sigma = 10.0)
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
             using (var image = Image.Load(filePath))
             {
                 RasterImage rasterImage = (RasterImage)image;
                 // Apply a Gaussian blur filter
-                rasterImage.Resize(300, 300);
-                rasterImage.Filter(rasterImage.Bounds, new GaussianBlurFilterOptions(radius, sigma));
-                rasterImage.Save(filePath + "_GaussianBlurFilter.jpg", new JpegOptions());
-            }
-            var imageFileStream = System.IO.File.OpenRead(filePath + "_GaussianBlurFilter.jpg");
-            return File(imageFileStream, "image/jpeg");
-        }
-
-        public IActionResult GaussianBlur(string fileType = "jpg", string fileName = "shipment.jpg", int radius = 5, double sigma = 4.0)
-        {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
-            using (var image = Image.Load(filePath))
-            {
-                RasterImage rasterImage = (RasterImage)image;
-                // Apply a Gaussian blur filter
-
 
                 switch (fileType)
                 {
