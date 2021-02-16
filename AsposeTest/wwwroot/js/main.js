@@ -1,27 +1,38 @@
 ﻿$(document).ready(() => {
     let fileName;
 
+    disableTools(true);
+
     $('#open').click(() => {
         $('#file').trigger('click');
     });
 
     $('#file').on('change', e => {
-        $('#loader').removeClass('hidden');
+        if (!e.target.files[0]) { return; }
+        $('.title > span').text(e.target.files[0].name);
+
+        $('.loader').removeClass('hidden');
 
         const formData = new FormData();
-        formData.append('file', e.target.files[0], e.target.fileName);
+        formData.append('file', e.target.files[0]);
         $.ajax({
             url: '/image/upload',
             type: 'post',
             processData: false,
             contentType: false,
             data: formData,
-            success: function (data) {
+            success: data => {
                 console.log('data', data);
                 fileName = data.name;
                 $('#preview').attr('src', `/image/preview?fileName=${fileName}`);
+            },
+            error: () => {
+                $('.loader').addClass('hidden');
+                $.jGrowl("Image not uploaded", { header: 'Error' });
             }
         });
+
+        $("#file").val(null);
     });
 
     $('#download').click(() => {
@@ -35,14 +46,30 @@
     });
 
     $('#radius').on('input', e => {
-        const radius = e.target.value;
-        $('#preview').css('filter', `blur(${radius}px)`);
+        const radius = `${e.target.value}px`;
+        $('#radius-label').text(radius);
+        $('#preview').css('filter', `blur(${radius})`);
     });
 
-    $('#preview').on('load', e => {
-        console.log(e.target)
-        $(e.target).removeClass('hidden');
-        $('#loader').addClass('hidden');
+    $('#preview').on('load', () => {
+        $('.preview-container').removeClass('hidden');
+        $('.title').removeClass('hidden');
+        $('.loader').addClass('hidden');
+        $('#open').addClass('hidden');
+        disableTools(false);
+    })
+
+    $('#preview').on('error', e => {
+        $('.loader').addClass('hidden');
+        $.jGrowl("Image not loaded", { header: 'Error' });
+    })
+
+    $('#close').click(() => {
+        $('.preview-container').addClass('hidden');
+        $('.title').addClass('hidden');
+        $('.loader').addClass('hidden');
+        $('#open').removeClass('hidden');
+        disableTools(true);
     })
 
     function download(url, filename) {
@@ -50,5 +77,17 @@
         a.href = url;
         a.setAttribute("download", filename);
         a.click();
+    }
+
+    function disableTools(disabled) {
+        if (disabled) {
+            $('#radius').attr('disabled', 'disabled');
+            $('#fileType').attr('disabled', 'disabled');
+            $('#download').attr('disabled', 'disabled');
+        } else {
+            $('#radius').removeAttr('disabled');
+            $('#fileType').removeAttr('disabled');
+            $('#download').removeAttr('disabled');
+        }
     }
 });

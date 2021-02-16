@@ -1,11 +1,55 @@
-﻿body {
-    background: black !important;
+﻿.hidden {
+    display: none !important;
 }
 
-.hidden {
-    display: none;
+.tools {
+    background: #2d2e37;
+    height: 100vh;
+    width: 220px;
+    padding: 65px 10px 15px 10px;
 }
 
-#preview {
-    max-width: 100%;
+.tools label {
+    color: white;
+}
+
+.preview {
+    background: #1e2024;
+    height: calc(100vh - 50px);
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.preview-container {
+    overflow: hidden;
+}
+
+.header {
+    position: fixed;
+    background: #2d2e37;
+    height: 50px;
+    background: #2d2e37;
+    border-bottom: 1px solid #1e2024;
+    width: 100%;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: hidden;
+}
+
+.header > div {
+    flex: 1;
+    text-align: center;
+}
+
+.header h2 {
+    color: #cbcbcb;
+}
+
+.title {
+    color: white;
 }
