@@ -9,6 +9,12 @@
 
     $('#file').on('change', e => {
         if (!e.target.files[0]) { return; }
+
+        if (e.target.files[0].size / 1024 / 1024 > 10) {
+            $.jGrowl("File larger than 10 Mb", { header: 'Error' });
+            return;
+        }
+
         $('.title > span').text(e.target.files[0].name);
 
         $('.loader').removeClass('hidden');

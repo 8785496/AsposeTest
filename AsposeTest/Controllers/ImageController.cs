@@ -18,6 +18,9 @@ namespace AsposeTest.Controllers
             _imageService = imageService;
         }
 
+        /// <summary>
+        /// This method saves image file on the server and returns the filename
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
@@ -37,13 +40,19 @@ namespace AsposeTest.Controllers
             }
         }
 
+        /// <summary>
+        /// This method returns an image preview file in JPG format
+        /// </summary>
         public IActionResult Preview(string fileName)
         {
             var fileStream = _imageService.GetPreview(fileName);
             return File(fileStream, "image/jpeg");
         }
 
-        public IActionResult GaussianBlur(string fileType, string fileName, int radius = 5, double sigma = 10.0)
+        /// <summary>
+        /// This method returns a processed image with a blur effect
+        /// </summary>
+        public IActionResult GaussianBlur(string fileType, string fileName, int radius = 5, double sigma = 4.0)
         {
             var fileStream = _imageService.GaussianBlurFilter(fileName, fileType, radius, sigma);
             return File(fileStream, $"image/{fileType}");
