@@ -1,12 +1,15 @@
-﻿.hidden {
+﻿.page {
+    background: #1e2024;
+}
+
+.hidden {
     display: none !important;
 }
 
 .tools {
-    background: #2d2e37;
-    height: 100vh;
-    width: 220px;
-    padding: 65px 10px 15px 10px;
+    display: flex;
+    justify-content: center;
+    padding: 25px 15px;
 }
 
 .tools label {
@@ -14,18 +17,16 @@
 }
 
 .preview {
-    background: #1e2024;
-    height: calc(100vh - 50px);
     width: 100%;
-    margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
+    padding-top: 75px;
 }
 
 .preview-container {
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .header {
@@ -33,12 +34,12 @@
     background: #2d2e37;
     height: 50px;
     background: #2d2e37;
-    border-bottom: 1px solid #1e2024;
     width: 100%;
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
     overflow: hidden;
+    z-index: 1;
 }
 
 .header > div {
@@ -52,4 +53,10 @@
 
 .title {
     color: white;
+}
+
+.image-preview {
+    max-width: calc(100vw / 2 - 20px);
+    max-height: 100vh;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }

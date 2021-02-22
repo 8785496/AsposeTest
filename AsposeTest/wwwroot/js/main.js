@@ -53,7 +53,7 @@
     $('#radius').on('input', e => {
         const radius = `${e.target.value}px`;
         $('#radius-label').text(radius);
-        $('#preview').css('filter', `blur(${radius})`);
+        $('#result-preview').css('filter', `blur(${radius})`);
     });
 
     $('#preview').on('load', () => {
@@ -61,6 +61,7 @@
         $('.title').removeClass('hidden');
         $('.loader').addClass('hidden');
         $('#open').addClass('hidden');
+        $('#result-preview').attr('src', `/image/preview?fileName=${fileName}`);
         disableTools(false);
     })
 
