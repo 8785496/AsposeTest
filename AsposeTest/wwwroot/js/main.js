@@ -10,14 +10,12 @@
     $('#file').on('change', e => {
         if (!e.target.files[0]) { return; }
 
-        if (e.target.files[0].size / 1024 / 1024 > 10) {
-            $.jGrowl("File larger than 10 Mb", { header: 'Error' });
+        if (e.target.files[0].size / 1024 / 1024 > 50) {
+            $.jGrowl("File larger than 50 Mb", { header: 'Error' });
             return;
         }
 
         $('.title > span').text(e.target.files[0].name);
-
-        $('.loader').removeClass('hidden');
 
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
@@ -27,6 +25,7 @@
             processData: false,
             contentType: false,
             data: formData,
+            beforeSend: () => $('.loader').removeClass('hidden'),
             success: data => {
                 console.log('data', data);
                 fileName = data.name;
